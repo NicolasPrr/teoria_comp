@@ -74,16 +74,21 @@ w = 2*pi/T;
 %%a_k = 2/T*quadl( @(x) my_cos(x,1,w,xt) , from_a,to_b); /
 %%b_k = 2/T*quadl( @(x) my_sin(x,3,w,xt) , from_a,to_b);/
 %______________________________________________________/
-
+disp("running plot 1")
 k = 1;
 sub_k = strcat('x_{', int2str(k),'}(t)');
 subplot(4,1,1);plot(t,xt(t)-0.1,'-r',t,my_sum(t,k,w,xt,from_a,to_b), '-g',[from_a,from_a],[-5,5],'-b',[to_b,to_b],[-5,5],'-b'  );title(my_title);
 xlabel('t');ylabel('x(t)');grid;legend('x(t)', sub_k,txt) ;ylim([-2 2]);
+clc
 
+disp("running plot 2")
 k = 5;
 sub_k = strcat('x_{', int2str(k),'}(t)');
 subplot(4,1,2);plot(t,xt(t),'-r',t,my_sum(t,k,w,xt,from_a,to_b), '-g');
 xlabel('t');ylabel('x(t)');grid; legend('x(t)', sub_k);ylim([-2 2]);
+clc
+
+disp("running plot 3")
 
 
 k = 10;
@@ -91,11 +96,16 @@ sub_k = strcat('x_{', int2str(k),'}(t)');
 subplot(4,1,3);plot(t,xt(t),'-r',t,my_sum(t,k,w,xt,from_a,to_b), '-g');
 xlabel('t');ylabel('x(t)');grid;legend('x(t)', sub_k);ylim([-2 2]);
 
+clc
+
+disp("running plot 4")
 
 k = 50;
 sub_k = strcat('x_{', int2str(k),'}(t)');
 subplot(4,1,4);plot(t,my_sum(t,k,w,xt,from_a,to_b), '-g');
 xlabel('t');ylabel('x(t)');grid;legend( sub_k);ylim([-2 2]);
+
+disp("ok")
 
 
 
