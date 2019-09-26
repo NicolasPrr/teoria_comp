@@ -1,4 +1,4 @@
-% Script OCTAVE para la transformada de Fourier del pulso rectangular.
+  % Script OCTAVE para la transformada de Fourier del pulso rectangular.
 a1=1; 	
 T=3;                                                                       % duraci?n de la se?al
 f0=1/3;                                                                      % valor de la frecuencia lineal
