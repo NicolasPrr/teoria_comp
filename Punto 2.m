@@ -1,14 +1,13 @@
 % Script OCTAVE para la transformada de Fourier del pulso rectangular.
 a1=1; 	
-T=4;    
-Ts=1/64;                                                                    % duraci�n de la se�al
-f0=T/Ts;                                                                      % valor de la frecuencia lineal
-fs=50*f0;                                                % intervalo de muestreo y frecuencia de muestreo
+T=3;                                                                       % duraci�n de la se�al
+f0=1/3;                                                                      % valor de la frecuencia lineal
+fs=50*f0; Ts=1/fs;                                                % intervalo de muestreo y frecuencia de muestreo
 t=[-T/2:Ts:T/2];                                                             % vector de tiempo
-f=[-128:128];                                                                % vector de frecuencias
+f=[-25:25];                                                                % vector de frecuencias
 wm = 5;
 ws1 = -10;
-ws2 = 10;
+ws2 = 10
 
 
 x=abs(t)<a1; 

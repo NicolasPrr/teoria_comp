@@ -1,4 +1,3 @@
-
 %Lista de funciones:
 
 my_fun1 = '-1*((x > -pi/2) & (x < 0 )) +  ((x > 0 ) & x < pi/2)  ';
@@ -106,6 +105,3 @@ subplot(4,1,4);plot(t,my_sum(t,k,w,xt,from_a,to_b), '-g');
 xlabel('t');ylabel('x(t)');grid;legend( sub_k);ylim([-2 2]);
 
 disp("ok")
-
-
-
