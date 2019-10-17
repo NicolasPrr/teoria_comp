@@ -11,31 +11,35 @@ xq                                                  % valores de la se�al cuan
 xqcode                                           % esto es lo que se traduce al formato de onda de pulsos
 
 
-UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma UNRZ
+#Vector que contiene la representaci�n en xqcodes de la forma UNRZ
+array_xqcode = reshape(xqcode',1, rows(xqcode)*columns(xqcode))
 
+UNRZ =  array_xqcode 
   ## plot de la onda digital de la forma Unipolar NRZ
   figure( 2 );
   subplot( 6, 1, 1 );
-  stairs( [0:length( UNRZ )-1], UNRZ );
-  ylim( [-1 2] );
+  stairs( [0: (length(UNRZ) -1) ], [UNRZ]);
+  ylim( [-2 2] );
   title( "Unipolar NRZ" );
+  set(gca,'XTick',[0: (length(UNRZ) -1) ])
+  xlim( [0 length(array_xqcode)] );
+
   grid;
+  
 
-  BNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma BNRZ
+  BNRZ = array_xqcode 
+  BNRZ = (BNRZ == 1) - (BNRZ == 0) ;
+  
 
-  ## Se hace la conversi�n de UNRZ a BNRZ
-  for i = 1:length( xqcode )
-    if( BNRZ(i) == 0 )
-      BNRZ( i ) = -1;
-    endif
-  endfor
   ## end
-
+ 
   ## plot de la onda digital de la forma Bipolar NRZ
   subplot( 6, 1, 2 );
   stairs( [0:length( BNRZ )-1], BNRZ ); 
   ylim( [-2 2] );
   title( "Bipolar NRZ" );
+  set(gca,'XTick',[0: (length(array_xqcode) -1) ])
+  xlim( [0 length(array_xqcode)] );
   grid;
   ## end plot
 
@@ -43,8 +47,8 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
   cont = 1;
 
   ## Se hace la conversi�n de UNRZ a URZ
-  for i = 1:length( xqcode )
-    if( xqcode( i ) == 1 )
+  for i = 1:length( array_xqcode )
+    if( array_xqcode( i ) == 1 )
       URZ( cont ) = 1;
       URZ( cont + 1 ) = 0;
     else
@@ -57,9 +61,13 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
 
   ## plot de la onda digital de la forma Unipolar RZ
   subplot( 6, 1, 3 );
-  stairs( [0:0.5:length( xqcode ) - 0.5], URZ );
-  ylim( [ -1 2 ] );
+  stairs( [0:0.5:length( array_xqcode ) - 0.5], URZ );
+  ylim( [ -2 2 ] );
   title( "Unipolar RZ" )
+  set(gca,'XTick',[0: (length(array_xqcode) -1) ])
+  xlim( [0 length(array_xqcode)] );
+  
+ 
   grid;
   ## end plot
 
@@ -67,8 +75,8 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
   cont = 1;
 
   ## Se hace la conversi�n de UNRZ a BRZ
-  for i = 1:length( xqcode )
-    if( xqcode( i ) == 1 )
+  for i = 1:length( array_xqcode )
+    if( array_xqcode( i ) == 1 )
       BRZ( cont ) = 1;
       BRZ( cont + 1 ) = 0;
     else
@@ -81,9 +89,11 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
 
   ## plot de la onda digital de la forma Bipolar RZ
   subplot( 6, 1, 4 );
-  stairs( [0:0.5:length( xqcode ) - 0.5], BRZ );
+  stairs( [0:0.5:length( array_xqcode ) - 0.5], BRZ );
   ylim( [ -2 2 ] );
   title( "Bipolar RZ" );
+  set(gca,'XTick',[0:(length(array_xqcode) -1) ])
+  xlim( [0 length(array_xqcode)] );
   grid;
   ## end
 
@@ -92,12 +102,12 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
   cont = 1;
 
   ## Se hace la conversi�n de UNRZ a AMI
-  for i = 1:length( xqcode )
-    if( xqcode( i ) == 1 && flag == true )
+  for i = 1:length( array_xqcode )
+    if( array_xqcode( i ) == 1 && flag == true )
       AMI( cont ) = 1;
       AMI( cont + 1 ) = 0;
       flag = false;
-    elseif( xqcode( i ) == 1 && flag == false )
+    elseif( array_xqcode( i ) == 1 && flag == false )
       AMI( cont ) = -1;
       AMI( cont + 1 ) = 0;
       flag = true;
@@ -111,9 +121,12 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
 
   ## plot de la onda digital de la forma AMI
   subplot( 6, 1, 5 );
-  stairs( [0:0.5:length( xqcode ) - 0.5], AMI );
+  stairs( [0:0.5:length( array_xqcode ) - 0.5], AMI );
   ylim( [ -2 2 ] );
   title( "AMI" );
+  set(gca,'XTick',[0:(length(array_xqcode) -1) ])
+  xlim( [0 length(array_xqcode)] );
+
   grid;
   ## end plot
 
@@ -122,8 +135,8 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
   cont = 1;
 
   ## Se hace la conversi�n de UNRZ a manchester
-  for i = 1:length( xqcode )
-    if( xqcode( i ) == 1 )
+  for i = 1:length( array_xqcode )
+    if( array_xqcode( i ) == 1 )
       manchester( cont ) = 1;
       manchester( cont + 1 ) = -1;
     else
@@ -136,8 +149,11 @@ UNRZ = xqcode; #Vector que contiene la representaci�n en xqcodes de la forma U
 
   ## plot de la onda digital de la forma manchester
   subplot( 6, 1, 6 );
-  stairs( [0:0.5:length( xqcode ) - 0.5], manchester );
+  stairs( [0:0.5:length( array_xqcode ) - 0.5], manchester );
   ylim( [ -2 2 ] );
   title( "Manchester" );
+  set(gca,'XTick',[0:(length(array_xqcode) -1) ])
+  xlim( [0 length(array_xqcode)] );
+
   grid;
   ## end plot
