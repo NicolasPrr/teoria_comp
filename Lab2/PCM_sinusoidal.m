@@ -1,33 +1,46 @@
 % Aplicando PCM a una seï¿½al sinusoidal  de 1 Hz.
 
 T=2;                                             % duraciï¿½n de la seï¿½al
+%fm > n
 Fm=1; Fs=4; Ts=1/Fs;                    % ancho de banda = 1, frecuencia max. = 1 Hz, fs >= 2*fm = 2 Hz, Ts = 1/Fs
-N=T/Ts;                                        % numero de muestras
-t=[0:Ts:T];                                     % vector de tiempo
-x=2.5*cos((2*pi*t)+(pi/2));            % sinusoidal muestreada
+N=T/Ts;    % numero de muestras
+A = 4                                     
+t=[0:Ts:T];
+tx=[0:0.01:T];                                     % vector de tiempo
+x=A*cos((2*pi*Fm*t)+(pi/2));            % sinusoidal muestreada
+xt=A*cos((2*pi*Fm*tx)+(pi/2));            % sinusoidal muestreada
+
 wm=2*pi*Fm;
-[xq,xqcode]=cuant_and_coder(x,2.5,4); % cuant_and_coder(x,xmax,n): cuantiza x sobre (-xmax,xmax) usando 2^n niveles y codifca los valores cuantizados de x.
+[xq,xqcode]=cuant_and_coder(x,A,3); % cuant_and_coder(x,xmax,n): cuantiza x sobre (-xmax,xmax) usando 2^n niveles y codifca los valores cuantizados de x.
 xq                                                  % valores de la seï¿½al cuantizados
 xqcode                                           % esto es lo que se traduce al formato de onda de pulsos
 
 
-#Vector que contiene la representaciï¿½n en xqcodes de la forma UNRZ
-array_xqcode = reshape(xqcode',1, rows(xqcode)*columns(xqcode))
+figure(1)
+subplot( 3, 1, 1 );plot(tx,xt);title("Señal original")
+subplot( 3, 1, 2 );stem(t,x);title("Señal muestrada");grid;
+subplot( 3, 1, 3 );stem(t,xq);title("Señal cuantizada");grid;
+  
 
-UNRZ =  array_xqcode 
+
+#Vector que contiene la representaciï¿½n en xqcodes de la forma UNRZ
+array_xqcode = reshape(xqcode',1, rows(xqcode)*columns(xqcode));
+
+UNRZ =  array_xqcode;
+figure(2)
   ## plot de la onda digital de la forma Unipolar NRZ
   figure( 2 );
   subplot( 6, 1, 1 );
   stairs( [0: (length(UNRZ) -1) ], [UNRZ]);
   ylim( [-2 2] );
   title( "Unipolar NRZ" );
-  set(gca,'XTick',[0: (length(UNRZ) -1) ])
+  set(gca,'XTick',[0: (length(UNRZ) -1) ]);
   xlim( [0 length(array_xqcode)] );
 
   grid;
   
 
-  BNRZ = array_xqcode 
+  BNRZ = array_xqcode ;
   BNRZ = (BNRZ == 1) - (BNRZ == 0) ;
   
 
@@ -38,7 +51,7 @@ UNRZ =  array_xqcode
   stairs( [0:length( BNRZ )-1], BNRZ ); 
   ylim( [-2 2] );
   title( "Bipolar NRZ" );
-  set(gca,'XTick',[0: (length(array_xqcode) -1) ])
+  set(gca,'XTick',[0: (length(array_xqcode) -1) ]);
   xlim( [0 length(array_xqcode)] );
   grid;
   ## end plot
@@ -64,7 +77,7 @@ UNRZ =  array_xqcode
   stairs( [0:0.5:length( array_xqcode ) - 0.5], URZ );
   ylim( [ -2 2 ] );
   title( "Unipolar RZ" )
-  set(gca,'XTick',[0: (length(array_xqcode) -1) ])
+  set(gca,'XTick',[0: (length(array_xqcode) -1) ]);
   xlim( [0 length(array_xqcode)] );
   
  
@@ -92,7 +105,7 @@ UNRZ =  array_xqcode
   stairs( [0:0.5:length( array_xqcode ) - 0.5], BRZ );
   ylim( [ -2 2 ] );
   title( "Bipolar RZ" );
-  set(gca,'XTick',[0:(length(array_xqcode) -1) ])
+  set(gca,'XTick',[0:(length(array_xqcode) -1) ]);
   xlim( [0 length(array_xqcode)] );
   grid;
   ## end
@@ -154,6 +167,17 @@ UNRZ =  array_xqcode
   title( "Manchester" );
   set(gca,'XTick',[0:(length(array_xqcode) -1) ])
   xlim( [0 length(array_xqcode)] );
-
+  
   grid;
   ## end plot
+  
+  Fs2 = 400; Ts2 = 1/Fs2;
+  N2 = T/Ts2;
+  t3 = [0:Ts2:T];
+  x2=[]
+  t
+  for t2=0:N2
+    x2(t2+1) = sum(xq.*(sin(wm*(t*(-1)) +t2 )/(wm*(t*(-1)) +t2 )));
+  endfor
+  figure(3)
+  stem(t3,x2);
