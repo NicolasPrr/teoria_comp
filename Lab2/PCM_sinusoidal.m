@@ -2,7 +2,7 @@
 
 T=2;                                    % duración de la seóal
 
-Fm=1; Fs=8; Ts=1/Fs;                    % ancho de banda = 1, frecuencia max. = 1 Hz, fs >= 2*fm = 2 Hz, Ts = 1/Fs
+Fm=1; Fs=3; Ts=1/Fs;                    % ancho de banda = 1, frecuencia max. = 1 Hz, fs >= 2*fm = 2 Hz, Ts = 1/Fs
 N=T/Ts;                                 % numero de muestras
 A = 4                                   % amplitud                                     
 t=[0:Ts:T];                             % Vector para el muestreo
@@ -179,5 +179,5 @@ figure(2)
 subplot( 4, 1, 1 );plot(t2,original);title("Senal original")
 subplot( 4, 1, 2 );stem(t,x);title("Senal muestrada");grid;
 subplot( 4, 1, 3 );stem(t,xq);title("Senal cuantizada");grid;
-subplot( 4, 1, 4 );plot(t2,x2);;title("Senal reconstruida");grid;
+subplot( 4, 1, 4 );plot(t2,x2);;title("Senal reconstruida");grid; ylim( [-A A]);
   
