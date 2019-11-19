@@ -1,17 +1,15 @@
-#Universidad Nacional de Colombia Sede Bogotá
-#Teoría de la información y sistemas de comunicaciones
-#--Fabián Camilo Ordóñez
-#--Jair Alexis Villalba
+#Universidad Nacional de Colombia Sede Bogotï¿½
+#Teorï¿½a de la informaciï¿½n y sistemas de comunicaciones
 #Taller 3
 
-function y = DMC( Px, Pyx ) #LA función DMC sirve para calcular [P(Y)], [P(X,Y)], 
+function y = DMC( Px, Pyx ) #LA funciï¿½n DMC sirve para calcular [P(Y)], [P(X,Y)], 
                             #H(X), H(Y|X), H(Y), H(X|Y), I(X;Y) y, si el canal 
-                            #es simétrico, calcula también C_s. Dados los valores de 
-                            #[P(x)] en la parámetro Px, y [P(Y|X)] en la parámetro Pyx
+                            #es simï¿½trico, calcula tambiï¿½n C_s. Dados los valores de 
+                            #[P(x)] en la parï¿½metro Px, y [P(Y|X)] en la parï¿½metro Pyx
   
   printf( "  ________________________________________________\n" )
   #Py se refiere a [P(Y)]
-  #Se calcula a partir de la multiplicación matricial entre [P(X)] y [P(Y|X)]
+  #Se calcula a partir de la multiplicaciï¿½n matricial entre [P(X)] y [P(Y|X)]
   Py = Px * Pyx;
   printf( "\n  \t| VECTOR DE PROBABILIDADES DE Y |\n  [P(Y)] = " );
   Py
@@ -22,7 +20,7 @@ function y = DMC( Px, Pyx ) #LA función DMC sirve para calcular [P(Y)], [P(X,Y)]
   
   printf( "  ________________________________________________\n" )
   #Pxcy se refiere a [P(X,Y)]
-  #Se calcula a partir de la multiplicación matricial entre [P(X)]_d y [P(Y|X)]
+  #Se calcula a partir de la multiplicaciï¿½n matricial entre [P(X)]_d y [P(Y|X)]
   Pxcy = Px_d * Pyx;
   printf( "\n  \t| MATRIZ DE RPOBABILIDADES CONJUNTAS |\n  [P(X,Y)] = " );
   Pxcy
@@ -75,7 +73,7 @@ function y = DMC( Px, Pyx ) #LA función DMC sirve para calcular [P(Y)], [P(X,Y)]
   Ixy
   
   printf( "  ________________________________________________\n" )
-  #Si el canal es binaria y simétrica, se calcula la capacidad del canal por símbolo
+  #Si el canal es binaria y simï¿½trica, se calcula la capacidad del canal por sï¿½mbolo
   if( Pyx(1, 1) == Pyx(2, 2) ) && ( Pyx(1, 2) == Pyx(2, 1) ) && ( length( Pyx ) == 2 )
     Cs = 1 + ( Pyx(1, 2) * log2( Pyx(1, 2) ) ) + ( ( 1 - Pyx(1, 2) ) * log2( ( 1 - Pyx(1, 2) ) ) );
     printf( "\n  \t| CAPACIDAD DEL CANAL POR SIMBOLO |\n  C_s = " );

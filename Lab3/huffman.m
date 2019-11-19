@@ -1,18 +1,16 @@
-#Universidad Nacional de Colombia Sede Bogotá
-#Teoría de la información y sistemas de comunicaciones
-#--Fabián Camilo Ordóñez
-#--Jair Alexis Villalba
+#Universidad Nacional de Colombia Sede Bogotï¿½
+#Teorï¿½a de la informaciï¿½n y sistemas de comunicaciones
 #Taller 3
 
 #Algoritmo de huffman puesto en marcha
 function y = huffman( Px )
-  #shuffle list es la lista sin ordenar. Tal como es pasada a la función
+  #shuffle list es la lista sin ordenar. Tal como es pasada a la funciï¿½n
   shuffle_list = Px;
   
   #Px es la lista ya ordenada
   Px = sort( Px, "descend" );
   
-  #size es el tamaño de la lista de probabilidades 
+  #size es el tamaï¿½o de la lista de probabilidades 
   size = length( Px );
   
   last = size;
@@ -26,23 +24,23 @@ function y = huffman( Px )
   m_probab = zeros( size, size - 1 );
   m_probab( 1:size ) = Px;
   
-  #Dentro de este ciclo for, se rellenará la matriz con todos sus correspondientes valores de probabilidades
+  #Dentro de este ciclo for, se rellenarï¿½ la matriz con todos sus correspondientes valores de probabilidades
   for i = 1:( size - 2 )
-    #En sum se guarda la la suma de los 2 últimos valores del arreglo anterior
+    #En sum se guarda la la suma de los 2 ï¿½ltimos valores del arreglo anterior
     sum = m_probab( last + ( size * cont2 ) ) + m_probab( last + ( size * cont2 ) - 1 );
     
-    #En vec_aux se almacenarán todos los valores del nuevo vector
+    #En vec_aux se almacenarï¿½n todos los valores del nuevo vector
     vec_aux = zeros( 1, last );
     vec_aux = m_probab( 1 + ( size * cont2 ):( last - 2 ) + ( size * cont2 ) );
     vec_aux( last - 1 ) = sum;
     last = last - 1;
     m_probab( 1 + ( size * cont ) : last + ( size * cont ) ) = sort( vec_aux, "descend" );
     
-    #pos_mark es la posición en la que está el valor que fue producto de la suma de los últimos
+    #pos_mark es la posiciï¿½n en la que estï¿½ el valor que fue producto de la suma de los ï¿½ltimos
     #dos valores del vector anterior
     pos_mark = find( sort( vec_aux, "descend" ) == sum );
 
-    #Si el valor de sum se encuentra más de una vez en vec_aux, se toma el último de estos valores
+    #Si el valor de sum se encuentra mï¿½s de una vez en vec_aux, se toma el ï¿½ltimo de estos valores
     if( length( pos_mark ) == 1 )
       marks( cont ) = pos_mark( 1 );
     else
@@ -53,7 +51,7 @@ function y = huffman( Px )
     cont2 = cont2 + 1;
   endfor
   
-  #en coding se almacenará el código para cada símbolo
+  #en coding se almacenarï¿½ el cï¿½digo para cada sï¿½mbolo
   coding = cell( 1, last );
   vec_aux = zeros( 1, last );
   coding( 1 ) = "0";
@@ -61,39 +59,39 @@ function y = huffman( Px )
   cont = cont - 1;
   len_last_vec = 2;
 
-  #En este ciclo for se hará la codificación de los símbolos, acorde al algoritmo de Huffman
+  #En este ciclo for se harï¿½ la codificaciï¿½n de los sï¿½mbolos, acorde al algoritmo de Huffman
   for i = 1:( size - 2 ) 
     mark = marks( cont );
     carry = coding( 1, mark );
     cont = cont - 1;
     
-    #vec_aux contendrá cada uno de los vectores de la matriz de probabilidades
-    #de atrás hacia adelante
+    #vec_aux contendrï¿½ cada uno de los vectores de la matriz de probabilidades
+    #de atrï¿½s hacia adelante
     vec_aux = zeros( 1, last );
     vec_aux = m_probab( ( ( size * ( cont + 1 ) ) - ( size - 1 ):( size * ( cont + 1 ) ) - ( size - ( len_last_vec + 1 ) ) ) );
     
     aux_cod = cell( 1, ( last + 1 ) );
   
-    #Se concatena un 0 o un 1, dependiendo de cuál número es mayor
+    #Se concatena un 0 o un 1, dependiendo de cuï¿½l nï¿½mero es mayor
     aux_cod( length( aux_cod ) - 1 ) = strcat( carry, "0" );
     aux_cod( length( aux_cod ) ) = strcat( carry, "1" );
     
-    #Si mark es diferente de last, entonces hay que copiar los números que se quedan 
-    #sin sin modificación 
+    #Si mark es diferente de last, entonces hay que copiar los nï¿½meros que se quedan 
+    #sin sin modificaciï¿½n 
     if( mark != last )
       pass = coding( ( mark + 1 ):last );
       aux_cod( last - length( pass ):( mark + length( pass ) ) - 1 ) = pass;
       if mark - length( pass ) > 1
         aux_cod( 1:mark - length( pass ) ) = coding( 1:mark - length( pass ) );
       endif
-    #En caso contrario, todos los números quedan sin cambios
+    #En caso contrario, todos los nï¿½meros quedan sin cambios
     else
       aux_cod( 1:mark - 1 ) = coding( 1, mark - 1 );
     endif  
      
     aux_cod;
     
-    #coding será quien contendrá todos los códigos para cada simbolo
+    #coding serï¿½ quien contendrï¿½ todos los cï¿½digos para cada simbolo
     coding = cell( 1, last + 1 );
     coding = aux_cod;
      
