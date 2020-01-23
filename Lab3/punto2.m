@@ -1,8 +1,6 @@
-#Problema 2 - Implementación del algoritmo de Hoffman
-
-#probabilidades = input("Ingrese el arreglo inicial de probabilidades: \n");
-probabilidades = [0.30,0.08,0.20,0.12,0.25,0.05];
-pro_sort = fliplr(sort(probabilidades));
+#probabilidades = input("Ingrese el vector de probabilidades de cada simbolo P(x): \n");
+Px = [0.30,0.08,0.20,0.12,0.25,0.05];
+pro_sort = fliplr(sort(Px));
 long = length(pro_sort);
 a = length(pro_sort) - 2;
 matriz_pro = zeros(length(pro_sort),length(pro_sort) - 1);

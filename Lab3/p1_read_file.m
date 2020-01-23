@@ -27,18 +27,6 @@ function y = verification_pyx( PYX )
 endfunction
 
 
-function y = esBSC(matriz)
-  if(columns(matriz)==2 && rows(matriz)==2)    
-    if(matriz(1,1)==matriz(2,2) && matriz(1,2)==matriz(2,1))      
-      y = true;
-      return;    
-    endif      
-  endif
-  y=false;  
-endfunction
-
-
-
 NAMEFILE_PX = "P(X).TXT";
 P = load (NAMEFILE_PX, "R")
 NAMEFILE_PYX = "P(YX).TXT";
