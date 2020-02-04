@@ -5,11 +5,12 @@ disp("Codificacion convolucional")
 d = [1 0 1 0 0]
 X = [0 0 0];
 m = 3;
+n = length(d);
 states = zeros(length(d),m-1);
 outputs = zeros(length(d),m-1);
 
 j = 1;
-for i=1:1:length(d) 
+for i=1:1:n 
     inputBit=d(i);
     X(1)=inputBit;    
     v1 = xor(X(1),X(3));
@@ -34,14 +35,14 @@ outputs =[1 1;0 0;0 0;0 1;1 1];
 codeRecv = outputs
 n=length(d);
 lengt = 2^n;
-options = zeros(lengt-1,n);
+paths = zeros(lengt-1,n);
 hammings = zeros(lengt-1,1);
 
 #Las opciones son todas las posibles palabras del mensaje
 for i=0:1:lengt-1
     word=dec2bin(i);
     for z=1:1:length(word);
-      options(i+1,z)=str2num(word(z));
+      paths(i+1,z)=str2num(word(z));
     end
 end
 
@@ -50,10 +51,10 @@ for z=1:1:lengt
   X1 = [0 0 0];
   dhamming=0;
   j = 1;
-  for i=1:1:length(d) 
+  for i=1:1:n 
       dhamming1=0;
       dhamming2=0;
-      X1(1)=options(z,i);
+      X1(1)=paths(z,i);
       vs1 = xor(X1(1),X1(3));
       vs2 = xor(X1(2),vs1);
       
@@ -93,7 +94,7 @@ outputs1 = zeros(length(d),2);
 output = zeros(1,length(d));
 
 for m=1:1:length(d)
-  output(1,m)=options(index,m);
+  output(1,m)=paths(index,m);
 end
 
 message = output;
@@ -104,7 +105,7 @@ X1 = [0 0 0];
 for i=1:1:length(d) 
    dhamming1=0;
    dhamming2=0;
-   X1(1)=options(index,i);
+   X1(1)=paths(index,i);
    vs1 = xor(X1(1),X1(3));
    vs2 = xor(X1(2),vs1);
    states1(j,1)= X1(1);
